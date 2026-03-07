@@ -9,6 +9,7 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2"
   },
