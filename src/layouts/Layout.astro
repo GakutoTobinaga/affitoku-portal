@@ -2,9 +2,10 @@
 interface Props {
   title?: string;
   description?: string;
+  schemas?: Array<{[key: string]: any}>;
 }
 
-const { title = 'アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン', description = 'あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。' } = Astro.props;
+const { title = 'アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン', description = 'あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。', schemas = [] } = Astro.props;
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
@@ -22,6 +23,10 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://affitoku.jp" />
+    <meta property="og:image" content="https://affitoku.jp/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="アフィトク！ Netflix実質最安視聴プラン -857円" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -33,8 +38,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
 
-    <!-- Canonical -->
-    <link rel="canonical" href="https://affitoku.jp" />
+    <!-- Canonical (Dynamic per-page) -->
+    <link rel="canonical" href={`https://affitoku.jp${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`} />
 
     <!-- Google Analytics 4 via Partytown (Off-main-thread) -->
     <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
@@ -62,7 +67,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "WBC2026独占配信：Netflix実質最安視聴プラン",
-        "image": "https://affitoku.jp/og-image.jpg",
+        "image": "https://affitoku.jp/og-image.png",
         "description": "地上波放送なしのWBCを実質マイナス857円で視聴する方法。公式価格498円に対し、えんためねっと報酬（465円）とドコモ爆アゲセレクション（890円還元）を組み合わせた最大利益スキームを解説。複数ポイントサイトの報酬キャンペーン活用で実現する逆転現象。",
         "brand": {
           "@type": "Brand",
@@ -136,6 +141,11 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         }
       }
     </script>
+
+    <!-- Dynamic Page Schemas (FAQ, HowTo, etc.) -->
+    {schemas.map(schema => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+    ))}
 
     <title>{title}</title>
     <style>

@@ -2,11 +2,78 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import netflixData from '../data/netflix.json';
+
+// FAQ Schema for AI Overview & featured snippets
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ポイント却下通知が来た場合の対処方法は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iOS設定を確認してください。既に却下されている場合は、サポートに申し立て可能です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ドコモ爆アゲセレクションの対象外と言われた時は？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "dアカウントが既出の可能性があります。家族名義や別回線での申込をご検討ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ポイント還元のタイミングはいつですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "えんためねっと報酬は30～60日後。ドコモポイントは翌月上旬から毎月付与開始します。"
+      }
+    }
+  ]
+};
+
+// HowTo Schema for featured snippets
+const howtoSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Netflix実質マイナス857円で契約する方法",
+  "description": "えんためねっととドコモ爆アゲセレクションを組み合わせてNetflixを実質マイナス857円で契約する3ステップ",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": "1",
+      "name": "えんためねっと経由で申込",
+      "text": "えんためねっと経由でドコモNetflix案件を申込して465円を確保します"
+    },
+    {
+      "@type": "HowToStep",
+      "position": "2",
+      "name": "爆アゲセレクション適用",
+      "text": "ドコモ『爆アゲセレクション』を適用し広告つきスタンダードを契約します"
+    },
+    {
+      "@type": "HowToStep",
+      "position": "3",
+      "name": "ポイント大還元祭適用",
+      "text": "『春のポイント大還元祭』で月額890円相当を3ヶ月間還元させます"
+    }
+  ],
+  "totalTime": "PT15M",
+  "estimatedCost": {
+    "@type": "PriceSpecification",
+    "priceCurrency": "JPY",
+    "price": "0"
+  }
+};
 ---
 
 <Layout
   title="Netflix実質マイナス857円で観る | アフィトク！"
   description="WBC全試合独占配信。地上波放送なし。だから、アフィトク！なら実質マイナス857円でNetflixを観られます。えんためねっと＋ドコモ爆アゲセレクションの最強ルート。"
+  schemas={[faqSchema, howtoSchema]}
 >
   <div class="min-h-screen bg-white pb-24">
     <Header showAlert={true} />
