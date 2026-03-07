@@ -8,12 +8,10 @@ const { showAlert = false } = Astro.props;
 
 <header class="sticky top-0 z-50 bg-[#002A5B] text-white shadow-lg" style="padding-top: max(0px, env(safe-area-inset-top));">
   <div class="px-4 py-3 flex items-center justify-between">
-    <!-- Logo -->
-    <div class="flex items-center gap-2">
-      <div class="text-2xl font-black">
-        <span class="text-[#E60012]">ア</span><span>フ</span><span>ィ</span><span class="text-[#E60012]">ト</span><span>ク</span><span class="text-[#E60012]">！</span>
-      </div>
-    </div>
+    <!-- Logo（赤のみ・白背景なし） - Home Link for SEO -->
+    <a href="/" class="flex items-center gap-2 flex-shrink-0" title="アフィトク！ - ホームへ">
+      <img src="/logo.svg" alt="アフィトク！" class="h-10 w-auto" width="180" height="42" loading="eager" decoding="async" />
+    </a>
 
     <!-- Alert Badge -->
     {showAlert && (

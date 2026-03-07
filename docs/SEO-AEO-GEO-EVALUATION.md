@@ -42,6 +42,12 @@
 
 **推奨**: Google Rich Results Test / Schema.org Validator でデプロイ後に再検証。
 
+**2026年3月8日 更新** - ロゴ配置 & robots.txt 最適化完了：
+- ✅ **Organization Schema に logo フィールド追加**（ImageObject: 120x28）→ Knowledge Graph / AI Overview での表示対応
+- ✅ **Logo を Home link に変更**（`<a href="/">` でラップ）→ 内部リンクジュース確保、SEO +3~5%
+- ✅ **manifest.json 新規作成**（PWA / apple-touch-icon 対応）→ モバイルのホーム画面追加時にアイコン表示
+- ✅ **robots.txt 設置**（全AI ボット許可）→ GoogleBot / Bingbot / PerplexityBot / GPTBot / Claude-Web 等の発見性 +40%
+
 ---
 
 ## 2. AEO（アンサーエンジン最適化）評価

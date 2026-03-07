@@ -18,6 +18,11 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta name="description" content={description} />
     <meta name="theme-color" content="#002A5B" />
 
+    <!-- Favicon（赤ロゴのみ・透過） + Web App Manifest + Apple Touch Icon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
     <!-- OGP Tags -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -50,7 +55,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       gtag('config', gaId);
     </script>
 
-    <!-- JSON-LD (Organization Schema + EEAT: knowsAbout) -->
+    <!-- JSON-LD (Organization Schema + EEAT: knowsAbout + Logo for AI Overview) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -58,6 +63,12 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         "name": "アフィトク！",
         "url": "https://affitoku.jp",
         "description": "自己アフィリエイト・ポイ活の実質価格計算エンジン",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://affitoku.jp/logo.svg",
+          "width": 1500,
+          "height": 350
+        },
         "knowsAbout": [
           "VODポイ活",
           "サブスクリプション最適化",

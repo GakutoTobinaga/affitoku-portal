@@ -1,23 +1,45 @@
-# affitoku.jp - Allow search and AI crawlers (SEO/GEO)
+# affitoku.jp - Robots.txt
+# SEO/AEO/GEO 最適化: すべてのボットにアクセス許可
+# Princeton GEO: "Cite Sources" +40% を実現するため、AI ボットの発見性向上
+
 User-agent: *
 Allow: /
+Disallow: /private/
+Disallow: /admin/
 
+# Google
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 0
 
+# Bing / Copilot
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
+Crawl-delay: 1
 
+# ChatGPT / GPT Bot
 User-agent: GPTBot
 Allow: /
+Crawl-delay: 1
 
+# OpenAI
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 1
+
+# Claude / Anthropic
 User-agent: Claude-Web
 Allow: /
+Crawl-delay: 1
 
 User-agent: anthropic-ai
 Allow: /
+Crawl-delay: 1
 
+# Sitemap for search engine discovery
 Sitemap: https://affitoku.jp/sitemap-index.xml

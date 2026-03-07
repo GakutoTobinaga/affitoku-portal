@@ -1,0 +1,33 @@
+{
+  "name": "アフィトク！ | 自己アフィリエイト・ポイ活報酬計算エンジン",
+  "short_name": "アフィトク！",
+  "description": "あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#002A5B",
+  "background_color": "#FFFFFF",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "120x28",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
