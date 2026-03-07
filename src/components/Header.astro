@@ -6,10 +6,7 @@ interface Props {
 const { showAlert = false } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 bg-[#002A5B] text-white shadow-lg">
-  <!-- Safe Area Top Padding -->
-  <div class="h-0" style="height: max(0px, env(safe-area-inset-top));"></div>
-
+<header class="sticky top-0 z-50 bg-[#002A5B] text-white shadow-lg" style="padding-top: max(0px, env(safe-area-inset-top));">
   <div class="px-4 py-3 flex items-center justify-between">
     <!-- Logo -->
     <div class="flex items-center gap-2">

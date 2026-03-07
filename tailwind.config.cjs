@@ -13,6 +13,22 @@ module.exports = {
       fontFamily: {
         'sans': ['Noto Sans JP', 'system-ui', 'sans-serif'],
       },
+      spacing: {
+        'safe': 'env(safe-area-inset-top)',
+        'safe-bottom': 'env(safe-area-inset-bottom)',
+        'safe-left': 'env(safe-area-inset-left)',
+        'safe-right': 'env(safe-area-inset-right)',
+      },
+      padding: {
+        'safe-x': 'env(safe-area-inset-left) env(safe-area-inset-right)',
+        'safe-y': 'env(safe-area-inset-top) env(safe-area-inset-bottom)',
+      },
+      maxWidth: {
+        'xs': '20rem',      // 320px
+        'sm': '24rem',      // 384px
+        'md': '28rem',      // 448px (our standard SP width)
+        'lg': '32rem',      // 512px
+      },
     },
   },
   plugins: [],
