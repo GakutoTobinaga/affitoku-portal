@@ -1,0 +1,50 @@
+---
+interface Props {
+  showAlert?: boolean;
+}
+
+const { showAlert = false } = Astro.props;
+---
+
+<header class="sticky top-0 z-50 bg-[#002A5B] text-white shadow-lg">
+  <!-- Safe Area Top Padding -->
+  <div class="h-0" style="height: max(0px, env(safe-area-inset-top));"></div>
+
+  <div class="px-4 py-3 flex items-center justify-between">
+    <!-- Logo -->
+    <div class="flex items-center gap-2">
+      <div class="text-2xl font-black">
+        <span class="text-[#E60012]">ア</span><span>フ</span><span>ィ</span><span class="text-[#E60012]">ト</span><span>ク</span><span class="text-[#E60012]">！</span>
+      </div>
+    </div>
+
+    <!-- Alert Badge -->
+    {showAlert && (
+      <div class="animate-pulse">
+        <span class="inline-block bg-[#E60012] text-white text-xs font-bold px-2 py-1 rounded">
+          WBC 緊急
+        </span>
+      </div>
+    )}
+  </div>
+
+  <!-- Subheader -->
+  <div class="px-4 pb-2 text-xs text-gray-300">
+    実質価格の最終回答エンジン
+  </div>
+</header>
+
+<style>
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン" description="あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。">
+  <div class="min-h-screen bg-white">
+    <Header showAlert={true} />
+
+    <!-- Hero Section -->
+    <section class="px-4 py-6 bg-[#F8F8F8]">
+      <h1 class="text-xl font-black text-gray-900 leading-tight mb-2">
+        あなたの<br /><span class="text-[#E60012]">「実質利益」</span>が<br />今すぐわかる。
+      </h1>
+      <p class="text-xs text-gray-600">
+        自己アフィリエイト・ポイ活の報酬を、ワンストップで計算。
+      </p>
+    </section>
+
+    <!-- WBC Alert Banner -->
+    <section class="px-4 py-4">
+      <a href="/netflix/" class="block bg-gradient-to-r from-[#E60012] to-[#b80a2f] rounded-lg p-4 text-white no-underline active:opacity-80 transition-opacity">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="text-lg">🚨</span>
+          <span class="text-xs font-black tracking-wider">WBC 緊急</span>
+        </div>
+        <p class="text-sm font-bold mb-1">
+          地上波なし。侍ジャパンをタダ同然で観る。
+        </p>
+        <p class="text-xs text-gray-100 mb-3">
+          Netflixを実質マイナス857円で契約する唯一の回答
+        </p>
+        <div class="flex items-baseline gap-1">
+          <span class="text-2xl font-black">-857円</span>
+          <span class="text-xs">→詳細を見る</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- Category Grid -->
+    <section class="px-4 py-6 border-t border-gray-200">
+      <h2 class="text-xs font-black text-gray-500 uppercase tracking-wider mb-4">
+        カテゴリから探す
+      </h2>
+      <div class="space-y-3">
+        <!-- 動画配信 -->
+        <button class="w-full bg-white border-2 border-gray-300 rounded-lg p-4 text-left active:bg-gray-50 transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-xl">
+              🎬
+            </div>
+            <div class="flex-1">
+              <p class="font-bold text-gray-900">動画配信</p>
+              <p class="text-xs text-gray-600">Netflix・Amazon・Disney等</p>
+            </div>
+            <span class="text-xs text-gray-400">→</span>
+          </div>
+        </button>
+
+        <!-- クレジットカード -->
+        <button class="w-full bg-white border-2 border-gray-300 rounded-lg p-4 text-left active:bg-gray-50 transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-xl">
+              💳
+            </div>
+            <div class="flex-1">
+              <p class="font-bold text-gray-900">クレジットカード</p>
+              <p class="text-xs text-gray-600">高還元カード特化</p>
+            </div>
+            <span class="text-xs text-gray-400">→</span>
+          </div>
+        </button>
+
+        <!-- 証券・投資 -->
+        <button class="w-full bg-white border-2 border-gray-300 rounded-lg p-4 text-left active:bg-gray-50 transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-xl">
+              📈
+            </div>
+            <div class="flex-1">
+              <p class="font-bold text-gray-900">証券・投資</p>
+              <p class="text-xs text-gray-600">口座開設キャンペーン</p>
+            </div>
+            <span class="text-xs text-gray-400">→</span>
+          </div>
+        </button>
+
+        <!-- 格安SIM・回線 -->
+        <button class="w-full bg-white border-2 border-gray-300 rounded-lg p-4 text-left active:bg-gray-50 transition-colors">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-xl">
+              📱
+            </div>
+            <div class="flex-1">
+              <p class="font-bold text-gray-900">格安SIM・回線</p>
+              <p class="text-xs text-gray-600">MNP・乗り換え特典</p>
+            </div>
+            <span class="text-xs text-gray-400">→</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Info Section -->
+    <section class="px-4 py-6 border-t border-gray-200 bg-[#F8F8F8]">
+      <h2 class="text-xs font-black text-gray-500 uppercase tracking-wider mb-4">
+        掲載案件数
+      </h2>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white rounded-lg p-4 text-center">
+          <p class="text-2xl font-black text-[#E60012]">1,742</p>
+          <p class="text-xs text-gray-600 mt-1">案件</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 text-center">
+          <p class="text-2xl font-black text-[#E60012]">最大</p>
+          <p class="text-xs text-gray-600 mt-1">
+            <span class="font-black">857円</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="px-4 py-8 text-center text-xs text-gray-500 border-t border-gray-200">
+      <p class="mb-2">© 2026 アフィトク！</p>
+      <p>自己アフィリエイト・ポイ活の最終回答エンジン</p>
+      <div style="height: max(0px, env(safe-area-inset-bottom));"></div>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  button {
+    cursor: pointer;
+  }
+</style>

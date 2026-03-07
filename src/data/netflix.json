@@ -1,0 +1,34 @@
+{
+  "last_updated": "2026-03-07",
+  "wbc_context": "地上波放送なし。侍ジャパンをタダ同然で観る唯一のルート。",
+  "calculation": {
+    "official_price": 498,
+    "official_name": "Netflix WBC応援キャンペーン",
+    "point_site_reward": 465,
+    "point_site_name": "えんためねっと",
+    "carrier_return": 890,
+    "carrier_name": "ドコモ爆アゲセレクション＋春のポイント大還元祭",
+    "effective_price": -857,
+    "breakdown": "498 - 465 - 890 = -857円"
+  },
+  "best_route": {
+    "combination": "えんためねっと + ドコモ爆アゲセレクション",
+    "steps": [
+      "えんためねっと経由でドコモNetflix案件を申込（465円確保）",
+      "ドコモ『爆アゲセレクション』を適用し広告つきスタンダードを契約",
+      "『春のポイント大還元祭』で月額890円相当を3ヶ月間還元"
+    ]
+  },
+  "rewards": [
+    {"site": "えんためねっと", "amount": 465, "link": "https://www.yentame.net/index.asp?id=1162924"},
+    {"site": "げん玉", "amount": 400, "link": "https://www.gendama.jp/"},
+    {"site": "トリマ", "amount": 375, "link": "https://web.trip-mile.com/"},
+    {"site": "アメフリ", "amount": 350, "link": "https://www.amefri.net/"},
+    {"site": "ハピタス", "amount": 250, "link": "https://hapitas.jp/"}
+  ],
+  "carriers": [
+    {"name": "ドコモ", "campaign": "春のポイント大還元祭", "return_amount": 890},
+    {"name": "au/UQ", "campaign": "Netflix応援キャンペーン", "return_amount": 890},
+    {"name": "ソフトバンク", "campaign": "Netflixセット満喫キャンペーン", "return_amount": 890}
+  ]
+}
