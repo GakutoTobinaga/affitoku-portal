@@ -30,5 +30,32 @@
     {"name": "ドコモ", "campaign": "春のポイント大還元祭", "return_amount": 890},
     {"name": "au/UQ", "campaign": "Netflix応援キャンペーン", "return_amount": 890},
     {"name": "ソフトバンク", "campaign": "Netflixセット満喫キャンペーン", "return_amount": 890}
+  ],
+  "citations": [
+    {
+      "id": "netflix-official",
+      "url": "https://help.netflix.com/ja/node/24926",
+      "label": "Netflix公式ヘルプセンター「プランと料金」より"
+    },
+    {
+      "id": "docomo-bakuage",
+      "url": "https://www.docomo.ne.jp/service/bakuage/",
+      "label": "NTTドコモ公式「爆アゲ セレクション」対象サービス・特典条件より"
+    },
+    {
+      "id": "yentame",
+      "url": "https://www.yentame.net/",
+      "label": "えんためねっと「サービス利用規約および成果報酬条件」より"
+    },
+    {
+      "id": "wbc2026",
+      "url": "",
+      "label": "WBC2026 放送・配信権に関するプレスリリースより"
+    }
+  ],
+  "howto_images": [
+    { "step": 1, "alt": "STEP 1: えんためねっと経由でNetflixへ", "path": "/images/howto-step1.webp" },
+    { "step": 2, "alt": "STEP 2: ドコモ爆アゲセレクションを適用", "path": "/images/howto-step2.webp" },
+    { "step": 3, "alt": "STEP 3: 実質マイナス857円を確認！", "path": "/images/howto-step3.webp" }
   ]
 }

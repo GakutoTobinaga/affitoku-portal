@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import AuthorProfile from '../components/AuthorProfile.astro';
 import netflixData from '../data/netflix.json';
 
-// FAQ Schema for AI Overview & featured snippets
+// FAQ Schema（GEO: 出典文を末尾に含めAI引用率向上）
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -13,7 +14,7 @@ const faqSchema = {
       "name": "ポイント却下通知が来た場合の対処方法は？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "iOS設定を確認してください。既に却下されている場合は、サポートに申し立て可能です。"
+        "text": "iOS設定を確認してください。既に却下されている場合は、サポートに申し立て可能です。※出典：えんためねっと公式サイト サービス利用規約および成果報酬条件（2026年3月現在）"
       }
     },
     {
@@ -21,7 +22,7 @@ const faqSchema = {
       "name": "ドコモ爆アゲセレクションの対象外と言われた時は？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "dアカウントが既出の可能性があります。家族名義や別回線での申込をご検討ください。"
+        "text": "dアカウントが既出の可能性があります。家族名義や別回線での申込をご検討ください。※出典：NTTドコモ公式 爆アゲ セレクション 特典適用条件より"
       }
     },
     {
@@ -29,38 +30,33 @@ const faqSchema = {
       "name": "ポイント還元のタイミングはいつですか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "えんためねっと報酬は30～60日後。ドコモポイントは翌月上旬から毎月付与開始します。"
+        "text": "えんためねっと報酬は30～60日後。ドコモポイントは翌月上旬から毎月付与開始します。当サイトの算出シミュレーションは、各プラットフォームの一次情報を元に毎日更新しています。"
       }
     }
   ]
 };
 
-// HowTo Schema for featured snippets
+// HowTo Schema（画像付きでリッチリザルト対応・動画なしでも可）
+const howtoSteps = netflixData.best_route.steps.map((text, i) => {
+  const img = netflixData.howto_images?.find((h) => h.step === i + 1);
+  const baseUrl = "https://affitoku.jp";
+  const step = {
+    "@type": "HowToStep",
+    "position": i + 1,
+    "name": img?.alt || `ステップ${i + 1}`,
+    "text": text,
+  };
+  if (img?.path) {
+    step.image = { "@type": "ImageObject", "url": `${baseUrl}${img.path}` };
+  }
+  return step;
+});
 const howtoSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
   "name": "Netflix実質マイナス857円で契約する方法",
   "description": "えんためねっととドコモ爆アゲセレクションを組み合わせてNetflixを実質マイナス857円で契約する3ステップ",
-  "step": [
-    {
-      "@type": "HowToStep",
-      "position": "1",
-      "name": "えんためねっと経由で申込",
-      "text": "えんためねっと経由でドコモNetflix案件を申込して465円を確保します"
-    },
-    {
-      "@type": "HowToStep",
-      "position": "2",
-      "name": "爆アゲセレクション適用",
-      "text": "ドコモ『爆アゲセレクション』を適用し広告つきスタンダードを契約します"
-    },
-    {
-      "@type": "HowToStep",
-      "position": "3",
-      "name": "ポイント大還元祭適用",
-      "text": "『春のポイント大還元祭』で月額890円相当を3ヶ月間還元させます"
-    }
-  ],
+  "step": howtoSteps,
   "totalTime": "PT15M",
   "estimatedCost": {
     "@type": "PriceSpecification",
@@ -68,12 +64,27 @@ const howtoSchema = {
     "price": "0"
   }
 };
+
+// WebPage Schema（EEAT: author + citation でAI引用率向上）
+const citationUrls = netflixData.citations.filter((c) => c.url).map((c) => c.url);
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Netflix実質マイナス857円で観る | アフィトク！",
+  "description": "WBC全試合独占配信。えんためねっと＋ドコモ爆アゲセレクションの最強ルート。",
+  "url": "https://affitoku.jp/netflix/",
+  "author": {
+    "@type": "Organization",
+    "name": "アフィトク！編集部"
+  },
+  "citation": citationUrls.length ? citationUrls : undefined
+};
 ---
 
 <Layout
   title="Netflix実質マイナス857円で観る | アフィトク！"
   description="WBC全試合独占配信。地上波放送なし。だから、アフィトク！なら実質マイナス857円でNetflixを観られます。えんためねっと＋ドコモ爆アゲセレクションの最強ルート。"
-  schemas={[faqSchema, howtoSchema]}
+  schemas={[faqSchema, howtoSchema, webPageSchema]}
 >
   <div class="min-h-screen bg-white pb-24">
     <Header showAlert={true} />
@@ -106,6 +117,21 @@ const howtoSchema = {
             = <span class="text-2xl">-857円</span>
           </p>
         </div>
+        <!-- 出典（価格シミュレーション脚注） -->
+        <div class="mt-3 pt-2 border-t border-white border-opacity-30 text-gray-200 text-[10px] space-y-1">
+          <p>出典：</p>
+          <ul class="space-y-0.5">
+            {netflixData.citations.filter(c => c.id === 'netflix-official' || c.id === 'docomo-bakuage' || c.id === 'yentame').map((c) => (
+              <li>
+                {c.url ? (
+                  <a href={c.url} target="_blank" rel="noopener noreferrer" class="underline hover:text-white">{c.label}</a>
+                ) : (
+                  <span>{c.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -118,21 +144,30 @@ const howtoSchema = {
 
     <!-- Content Area -->
     <div class="pb-4">
-      <!-- Step by Step Guide -->
+      <!-- Step by Step Guide（How-To図解：画像は public/images/howto-step1〜3.png を配置で表示） -->
       <section class="px-4 py-6 border-b border-gray-200" itemscope itemtype="https://schema.org/HowTo">
         <h2 class="text-sm font-black text-gray-900 mb-4">3ステップガイド</h2>
-        <div class="space-y-3">
-          {netflixData.best_route.steps.map((step, index) => (
-            <div class="flex gap-3" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
-              <div class="flex-shrink-0 w-8 h-8 bg-[#E60012] text-white rounded-full flex items-center justify-center font-black text-xs">
-                <meta itemprop="position" content={String(index + 1)} />
-                {index + 1}
+        <div class="space-y-4">
+          {netflixData.best_route.steps.map((step, index) => {
+            const stepImg = netflixData.howto_images?.find((h) => h.step === index + 1);
+            return (
+              <div class="flex gap-3" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
+                <div class="flex-shrink-0 w-8 h-8 bg-[#E60012] text-white rounded-full flex items-center justify-center font-black text-xs">
+                  <meta itemprop="position" content={String(index + 1)} />
+                  {index + 1}
+                </div>
+                <div class="flex-1 pt-1">
+                  {stepImg?.path && (
+                    <p class="text-xs font-bold text-gray-600 mb-2">{stepImg.alt}</p>
+                  )}
+                  {stepImg?.path && (
+                    <img src={stepImg.path} alt={stepImg.alt || `ステップ${index + 1}`} class="w-full rounded-lg border border-gray-200 mb-2" width="360" height="240" loading="lazy" />
+                  )}
+                  <p class="text-sm text-gray-900 leading-relaxed" itemprop="text">{step}</p>
+                </div>
               </div>
-              <div class="flex-1 pt-1">
-                <p class="text-sm text-gray-900 leading-relaxed" itemprop="text">{step}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <!-- Warning Box -->
@@ -219,24 +254,36 @@ const howtoSchema = {
         <div class="space-y-3 text-xs">
           <div>
             <p class="font-bold text-[#E60012] mb-1"><span aria-hidden="true">Q:</span> ポイント却下通知が来た</p>
-            <p class="text-gray-700"><span aria-hidden="true">A:</span> iOS設定を確認してください。既に却下されている場合は、サポートに申し立て可能です。</p>
+            <p class="text-gray-700"><span aria-hidden="true">A:</span> iOS設定を確認してください。既に却下されている場合は、サポートに申し立て可能です。<sup><a href="#cite-yentame" class="text-gray-500">[1]</a></sup></p>
           </div>
 
           <div>
             <p class="font-bold text-[#E60012] mb-1"><span aria-hidden="true">Q:</span> ドコモ爆アゲ対象外と言われた</p>
-            <p class="text-gray-700"><span aria-hidden="true">A:</span> dアカウントが既出の可能性。家族名義や別回線での申込を検討してください。</p>
+            <p class="text-gray-700"><span aria-hidden="true">A:</span> dアカウントが既出の可能性。家族名義や別回線での申込を検討してください。<sup><a href="#cite-docomo" class="text-gray-500">[2]</a></sup></p>
           </div>
 
           <div>
             <p class="font-bold text-[#E60012] mb-1"><span aria-hidden="true">Q:</span> 還元タイミングは？</p>
-            <p class="text-gray-700"><span aria-hidden="true">A:</span> えんためねっと報酬は30～60日後。ドコモポイントは翌月上旬から毎月付与開始。</p>
+            <p class="text-gray-700"><span aria-hidden="true">A:</span> えんためねっと報酬は30～60日後。ドコモポイントは翌月上旬から毎月付与開始。<sup><a href="#cite-yentame" class="text-gray-500">[1]</a><a href="#cite-docomo" class="text-gray-500">[2]</a></sup></p>
           </div>
         </div>
+        <!-- 出典リスト（脚注） -->
+        <div id="citations" class="mt-4 pt-3 border-t border-gray-200 text-[10px] text-gray-500 space-y-1">
+          <p class="font-bold text-gray-600 mb-2">出典</p>
+          <ol class="space-y-1 list-none">
+            <li id="cite-yentame">[1] <a href="https://www.yentame.net/" target="_blank" rel="noopener noreferrer" class="underline">えんためねっと「サービス利用規約および成果報酬条件」より</a></li>
+            <li id="cite-docomo">[2] <a href="https://www.docomo.ne.jp/service/bakuage/" target="_blank" rel="noopener noreferrer" class="underline">NTTドコモ公式「爆アゲ セレクション」対象サービス・特典条件より</a></li>
+          </ol>
+        </div>
       </section>
+
+      <!-- EEAT: 著者・編集部プロフィール -->
+      <AuthorProfile />
 
       <!-- Info Footer -->
       <section class="px-4 py-6 text-xs text-gray-600">
         <p class="mb-2">最終更新：{new Date(netflixData.last_updated).toLocaleDateString('ja-JP')}</p>
+        <p class="mb-2">当サイトの算出シミュレーションは、各プラットフォームの一次情報を元に毎日更新しています。</p>
         <p>本情報は参考です。最新情報は各公式サイトでご確認ください。</p>
       </section>
     </div>

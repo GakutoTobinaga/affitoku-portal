@@ -50,14 +50,19 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       gtag('config', gaId);
     </script>
 
-    <!-- JSON-LD (Organization Schema) -->
+    <!-- JSON-LD (Organization Schema + EEAT: knowsAbout) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "アフィトク！",
         "url": "https://affitoku.jp",
-        "description": "自己アフィリエイト・ポイ活の実質価格計算エンジン"
+        "description": "自己アフィリエイト・ポイ活の実質価格計算エンジン",
+        "knowsAbout": [
+          "VODポイ活",
+          "サブスクリプション最適化",
+          "ドコモ経済圏解析"
+        ]
       }
     </script>
 
