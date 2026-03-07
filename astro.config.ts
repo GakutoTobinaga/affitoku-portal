@@ -4,11 +4,7 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://affitoku.jp',
-  integrations: [
-    tailwind({
-      applyBaseStyles: false,
-    }),
-  ],
+  integrations: [tailwind()],
   // Performance: Static export for Cloudflare Pages
   output: 'static',
   // Image optimization
