@@ -5,6 +5,7 @@ interface Props {
 }
 
 const { title = 'アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン', description = 'あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。' } = Astro.props;
+
 const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
 
@@ -35,24 +36,14 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <!-- Canonical -->
     <link rel="canonical" href="https://affitoku.jp" />
 
-    <!-- Google Analytics 4: Inline + Partytown Fallback -->
-    <!-- Primary: Partytown (Web Worker) for performance -->
+    <!-- Google Analytics 4 via Partytown (Off-main-thread) -->
     <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-    <script type="text/partytown" set:html={`
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${gaId}');
-    `}></script>
-
-    <!-- Fallback: Inline GA4 for Safari/Partytown compatibility -->
-    <script is:inline define:vars={{ gaId }}>
+    <script type="text/partytown" is:inline define:vars={{ gaId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', gaId);
     </script>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-F1M3SXS18H"></script>
 
     <!-- JSON-LD (Organization Schema) -->
     <script type="application/ld+json">
