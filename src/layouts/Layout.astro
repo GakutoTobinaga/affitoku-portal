@@ -56,6 +56,25 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       }
     </script>
 
+    <!-- Product Schema with Price (Google Search Console Validation) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "アフィトク！- 自己アフィリエイト・ポイ活報酬計算エンジン",
+        "description": "あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。実質マイナス価格でお釣りが出る契約スキームを完全解説。",
+        "image": "https://affitoku.jp/og-image.jpg",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "JPY",
+          "price": "0",
+          "priceValidUntil": "2026-12-31T23:59:59+09:00",
+          "availability": "https://schema.org/InStock",
+          "url": "https://affitoku.jp"
+        }
+      }
+    </script>
+
     <title>{title}</title>
     <style>
       :root {
