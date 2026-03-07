@@ -35,7 +35,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <!-- Canonical -->
     <link rel="canonical" href="https://affitoku.jp" />
 
-    <!-- Google Analytics 4 via Partytown (Off-main-thread) -->
+    <!-- Google Analytics 4: Inline + Partytown Fallback -->
+    <!-- Primary: Partytown (Web Worker) for performance -->
     <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
     <script type="text/partytown" set:html={`
       window.dataLayer = window.dataLayer || [];
@@ -43,6 +44,15 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       gtag('js', new Date());
       gtag('config', '${gaId}');
     `}></script>
+
+    <!-- Fallback: Inline GA4 for Safari/Partytown compatibility -->
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-F1M3SXS18H"></script>
 
     <!-- JSON-LD (Organization Schema) -->
     <script type="application/ld+json">

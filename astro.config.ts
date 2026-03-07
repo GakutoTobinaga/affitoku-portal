@@ -22,6 +22,7 @@ export default defineConfig({
       config: {
         forward: ['gtag', 'dataLayer.push'],
       },
+      copyFiles: true,
     }),
   ],
   // Performance: Static export for Cloudflare Pages
