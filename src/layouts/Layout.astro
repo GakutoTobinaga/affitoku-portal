@@ -66,7 +66,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       }
     </script>
 
-    <!-- Product Schema with AggregateOffer (Google Search Console Validation) -->
+    <!-- Product Schema (offers 必須: Google リッチリザルト要件) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org/",
@@ -78,7 +78,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
           "@type": "Brand",
           "name": "アフィトク！"
         },
-        "aggregateOffer": {
+        "offers": {
           "@type": "AggregateOffer",
           "offerCount": 6,
           "lowPrice": "33",
