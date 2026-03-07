@@ -9,9 +9,7 @@
     "check": "astro check"
   },
   "dependencies": {
-    "astro": "^5.18.0"
-  },
-  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "@astrojs/tailwind": "^6.0.2"
   },
   "devDependencies": {
