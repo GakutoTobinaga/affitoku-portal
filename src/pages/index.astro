@@ -125,16 +125,9 @@ import AuthorProfile from '../components/AuthorProfile.astro';
     <AuthorProfile />
 
     <!-- Footer -->
-    <footer class="px-4 py-8 text-center text-xs text-gray-500 border-t border-gray-200">
+    <footer class="px-4 py-8 text-center text-xs text-gray-500 border-t border-gray-200" style="padding-bottom: max(2rem, env(safe-area-inset-bottom));">
       <p class="mb-2">© 2026 アフィトク！</p>
       <p>自己アフィリエイト・ポイ活の最終回答エンジン</p>
-      <div style="height: max(0px, env(safe-area-inset-bottom));"></div>
     </footer>
   </div>
 </Layout>
-
-<style>
-  button {
-    cursor: pointer;
-  }
-</style>

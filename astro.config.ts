@@ -27,16 +27,13 @@ export default defineConfig({
   ],
   // Performance: Static export for Cloudflare Pages
   output: 'static',
-  // Image optimization
+  // Image optimization (sharp is Astro 5 default; squoosh is deprecated)
   image: {
-    service: {
-      entrypoint: 'astro/assets/services/squoosh',
-    },
     format: ['webp', 'avif'],
   },
-  // Build optimization
+  // Build optimization: never inline — Cloudflare Pages serves over HTTP/2, CSS caching across pages is more valuable
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'never',
   },
   // Vite configuration for mobile optimization
   vite: {

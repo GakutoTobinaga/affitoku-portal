@@ -37,10 +37,13 @@ const faqSchema = {
 };
 
 // HowTo Schema（画像付きでリッチリザルト対応・動画なしでも可）
+const baseUrl = Astro.site?.origin ?? "https://affitoku.jp";
+const howtoImageMap = Object.fromEntries(
+  (netflixData.howto_images ?? []).map((h) => [h.step, h])
+);
 const howtoSteps = netflixData.best_route.steps.map((text, i) => {
-  const img = netflixData.howto_images?.find((h) => h.step === i + 1);
-  const baseUrl = "https://affitoku.jp";
-  const step = {
+  const img = howtoImageMap[i + 1];
+  const step: Record<string, unknown> = {
     "@type": "HowToStep",
     "position": i + 1,
     "name": img?.alt || `ステップ${i + 1}`,
@@ -65,6 +68,50 @@ const howtoSchema = {
   }
 };
 
+// Product Schema（Netflix専用・aggregateOffer）
+const offerPriceValidUntil = "2026-12-31T23:59:59+09:00";
+const offerPrices = netflixData.rewards.map((r) => netflixData.calculation.official_price - r.amount);
+const productSchema = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "WBC2026独占配信：Netflix実質最安視聴プラン",
+  "image": `${baseUrl}/og-image.png`,
+  "description": "地上波放送なしのWBCを実質マイナス857円で視聴する方法。公式価格498円に対し、えんためねっと報酬（465円）とドコモ爆アゲセレクション（890円還元）を組み合わせた最大利益スキームを解説。",
+  "brand": { "@type": "Brand", "name": "アフィトク！" },
+  "offers": {
+    "@type": "AggregateOffer",
+    "offerCount": netflixData.rewards.length + 1,
+    "lowPrice": String(Math.min(...offerPrices)),
+    "highPrice": String(netflixData.calculation.official_price),
+    "priceCurrency": "JPY",
+    "priceValidUntil": offerPriceValidUntil,
+    "availability": "https://schema.org/InStock",
+    "url": `${baseUrl}/netflix/`,
+    "offers": [
+      ...netflixData.rewards.map((r) => ({
+        "@type": "Offer",
+        "name": r.site,
+        "description": `ポイントサイト報酬${r.amount}円`,
+        "price": String(netflixData.calculation.official_price - r.amount),
+        "priceCurrency": "JPY",
+        "priceValidUntil": offerPriceValidUntil,
+        "availability": "https://schema.org/InStock",
+        "url": r.link,
+      })),
+      {
+        "@type": "Offer",
+        "name": "公式直接契約",
+        "description": "キャンペーン適用なし",
+        "price": String(netflixData.calculation.official_price),
+        "priceCurrency": "JPY",
+        "priceValidUntil": offerPriceValidUntil,
+        "availability": "https://schema.org/InStock",
+        "url": `${baseUrl}/netflix/`,
+      }
+    ]
+  }
+};
+
 // WebPage Schema（EEAT: author + citation でAI引用率向上）
 const citationUrls = netflixData.citations.filter((c) => c.url).map((c) => c.url);
 const webPageSchema = {
@@ -84,7 +131,8 @@ const webPageSchema = {
 <Layout
   title="Netflix実質マイナス857円で観る | アフィトク！"
   description="WBC全試合独占配信。地上波放送なし。だから、アフィトク！なら実質マイナス857円でNetflixを観られます。えんためねっと＋ドコモ爆アゲセレクションの最強ルート。"
-  schemas={[faqSchema, howtoSchema, webPageSchema]}
+  schemas={[productSchema, faqSchema, howtoSchema, webPageSchema]}
+  ogImageAlt="アフィトク！ Netflix実質マイナス857円で観る"
 >
   <div class="min-h-screen bg-white pb-24">
     <Header showAlert={true} />
@@ -142,7 +190,7 @@ const webPageSchema = {
 
     <!-- CTA Button (Sticky) -->
     <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto px-4 py-3 bg-white border-t border-gray-200 z-40" style="padding-bottom: max(1rem, env(safe-area-inset-bottom));">
-      <a href="https://www.yentame.net/index.asp?id=1225198" target="_blank" rel="noopener noreferrer" class="block w-full bg-[#E60012] hover:bg-[#b80a2f] text-white font-black py-4 rounded-lg text-center active:opacity-80 transition-opacity">
+      <a href="https://www.yentame.net/index.asp?id=1225198" target="_blank" rel="noopener noreferrer sponsored" class="block w-full bg-[#E60012] hover:bg-[#b80a2f] text-white font-black py-4 rounded-lg text-center active:opacity-80 transition-opacity">
         えんためねっとで465円を確保する →
       </a>
     </div>
@@ -154,7 +202,7 @@ const webPageSchema = {
         <h2 class="text-sm font-black text-gray-900 mb-4">3ステップガイド</h2>
         <div class="space-y-4">
           {netflixData.best_route.steps.map((step, index) => {
-            const stepImg = netflixData.howto_images?.find((h) => h.step === index + 1);
+            const stepImg = howtoImageMap[index + 1];
             return (
               <div class="flex gap-3" itemprop="step" itemscope itemtype="https://schema.org/HowToStep">
                 <div class="flex-shrink-0 w-8 h-8 bg-[#E60012] text-white rounded-full flex items-center justify-center font-black text-xs">
@@ -194,7 +242,7 @@ const webPageSchema = {
             const medals = ['🥇', '🥈', '🥉'];
             const medal = medals[index] || '';
             return (
-              <a href={reward.link} target="_blank" rel="noopener noreferrer" class="block bg-white border border-gray-300 rounded-lg p-3 active:bg-gray-50 transition-colors">
+              <a href={reward.link} target="_blank" rel="noopener noreferrer sponsored" class="block bg-white border border-gray-300 rounded-lg p-3 active:bg-gray-50 transition-colors">
                 <div class="flex items-center justify-between gap-2">
                   <div class="flex items-center gap-2 flex-1">
                     {medal && <span class="text-lg">{medal}</span>}
