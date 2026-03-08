@@ -69,6 +69,8 @@ const howtoSchema = {
 };
 
 // Product Schema（Netflix専用・aggregateOffer）
+const offerPriceValidUntil = "2026-12-31T23:59:59+09:00";
+const offerPrices = netflixData.rewards.map((r) => netflixData.calculation.official_price - r.amount);
 const productSchema = {
   "@context": "https://schema.org/",
   "@type": "Product",
@@ -79,10 +81,10 @@ const productSchema = {
   "offers": {
     "@type": "AggregateOffer",
     "offerCount": netflixData.rewards.length + 1,
-    "lowPrice": String(netflixData.calculation.official_price - netflixData.calculation.point_site_reward - netflixData.calculation.carrier_return + netflixData.calculation.official_price),
+    "lowPrice": String(Math.min(...offerPrices)),
     "highPrice": String(netflixData.calculation.official_price),
     "priceCurrency": "JPY",
-    "priceValidUntil": "2026-12-31T23:59:59+09:00",
+    "priceValidUntil": offerPriceValidUntil,
     "availability": "https://schema.org/InStock",
     "url": `${baseUrl}/netflix/`,
     "offers": [
@@ -92,6 +94,7 @@ const productSchema = {
         "description": `ポイントサイト報酬${r.amount}円`,
         "price": String(netflixData.calculation.official_price - r.amount),
         "priceCurrency": "JPY",
+        "priceValidUntil": offerPriceValidUntil,
         "availability": "https://schema.org/InStock",
         "url": r.link,
       })),
@@ -101,6 +104,7 @@ const productSchema = {
         "description": "キャンペーン適用なし",
         "price": String(netflixData.calculation.official_price),
         "priceCurrency": "JPY",
+        "priceValidUntil": offerPriceValidUntil,
         "availability": "https://schema.org/InStock",
         "url": `${baseUrl}/netflix/`,
       }
