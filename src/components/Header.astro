@@ -6,7 +6,7 @@ interface Props {
 const { showAlert = false } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 bg-[#002A5B] text-white shadow-lg" style="padding-top: max(0px, env(safe-area-inset-top));">
+<header class="sticky top-0 z-50 backdrop-blur-md bg-white/10 text-white border-b border-white/20" style="padding-top: max(0px, env(safe-area-inset-top));">
   <div class="px-4 py-3 flex items-center justify-between">
     <!-- Logo（赤のみ・白背景なし） - Home Link for SEO -->
     <a href="/" class="flex items-center gap-2 flex-shrink-0" title="アフィトク！ - ホームへ">

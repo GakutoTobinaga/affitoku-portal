@@ -1,0 +1,29 @@
+{
+  "gendama": {
+    "name": "げん玉",
+    "url": "https://www.gendama.jp/",
+    "referralUrl": "https://www.gendama.jp/invite/?frid=7556546&ref=90000-url",
+    "referralCode": "7556546",
+    "description": "ポイントサイト大手、換金レート1円 = 1円",
+    "pointUnit": "ポイント",
+    "exchangeRate": 0.1
+  },
+  "hapitas": {
+    "name": "ハピタス",
+    "url": "https://hapitas.jp/",
+    "referralUrl": "https://hapitas.jp/appinvite?i=25781377&route=pcText",
+    "referralCode": "25781377",
+    "description": "ポイント還元率が高い、3%の友達ボーナス",
+    "pointUnit": "ポイント",
+    "exchangeRate": 1.0
+  },
+  "trimile": {
+    "name": "トリマ",
+    "url": "https://services.trip-mile.com/",
+    "referralUrl": "https://services.trip-mile.com/web/invite?code=_puSb3tPX",
+    "referralCode": "_puSb3tPX",
+    "description": "移動でポイント、GPS連動型アプリ",
+    "pointUnit": "マイル",
+    "exchangeRate": 0.01
+  }
+}
