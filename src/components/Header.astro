@@ -10,7 +10,7 @@ const { showAlert = false } = Astro.props;
   <div class="px-4 py-3 flex items-center justify-between">
     <!-- Logo（赤のみ・白背景なし） - Home Link for SEO -->
     <a href="/" class="flex items-center gap-2 flex-shrink-0" title="アフィトク！ - ホームへ">
-      <img src="/logo.svg" alt="アフィトク！" class="h-10 w-auto" width="180" height="42" loading="eager" decoding="async" />
+      <img src="/logo.svg" alt="アフィトク！" class="h-10 w-auto" width="180" height="40" loading="eager" decoding="async" />
     </a>
 
     <!-- Alert Badge -->
@@ -29,17 +29,3 @@ const { showAlert = false } = Astro.props;
   </div>
 </header>
 
-<style>
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-  }
-
-  .animate-pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-</style>

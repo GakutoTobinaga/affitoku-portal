@@ -2,10 +2,16 @@
 interface Props {
   title?: string;
   description?: string;
+  ogImageAlt?: string;
   schemas?: Array<{[key: string]: any}>;
 }
 
-const { title = 'アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン', description = 'あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。', schemas = [] } = Astro.props;
+const {
+  title = 'アフィトク！| 自己アフィリエイト・ポイ活報酬計算エンジン',
+  description = 'あなたの「実質利益」が今すぐわかる。アフィトク！は、自己アフィリエイトとポイ活の実質価格を算出する最終回答エンジンです。',
+  ogImageAlt = 'アフィトク！ - 自己アフィリエイト・ポイ活報酬計算エンジン',
+  schemas = []
+} = Astro.props;
 
 const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
@@ -27,11 +33,11 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://affitoku.jp" />
+    <meta property="og:url" content={`https://affitoku.jp${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`} />
     <meta property="og:image" content="https://affitoku.jp/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="アフィトク！ Netflix実質最安視聴プラン -857円" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -47,13 +53,17 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <link rel="canonical" href={`https://affitoku.jp${Astro.url.pathname === '/' ? '' : Astro.url.pathname}`} />
 
     <!-- Google Analytics 4 via Partytown (Off-main-thread) -->
-    <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-    <script type="text/partytown" is:inline define:vars={{ gaId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', gaId);
-    </script>
+    {gaId && (
+      <Fragment>
+        <script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script type="text/partytown" is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </Fragment>
+    )}
 
     <!-- JSON-LD (Organization Schema + EEAT: knowsAbout + Logo for AI Overview) -->
     <script type="application/ld+json">
@@ -77,88 +87,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       }
     </script>
 
-    <!-- Product Schema (offers 必須: Google リッチリザルト要件) -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org/",
-        "@type": "Product",
-        "name": "WBC2026独占配信：Netflix実質最安視聴プラン",
-        "image": "https://affitoku.jp/og-image.png",
-        "description": "地上波放送なしのWBCを実質マイナス857円で視聴する方法。公式価格498円に対し、えんためねっと報酬（465円）とドコモ爆アゲセレクション（890円還元）を組み合わせた最大利益スキームを解説。複数ポイントサイトの報酬キャンペーン活用で実現する逆転現象。",
-        "brand": {
-          "@type": "Brand",
-          "name": "アフィトク！"
-        },
-        "offers": {
-          "@type": "AggregateOffer",
-          "offerCount": 6,
-          "lowPrice": "33",
-          "highPrice": "498",
-          "priceCurrency": "JPY",
-          "priceValidUntil": "2026-12-31T23:59:59+09:00",
-          "availability": "https://schema.org/InStock",
-          "url": "https://affitoku.jp/netflix/",
-          "offers": [
-            {
-              "@type": "Offer",
-              "name": "えんためねっと",
-              "description": "報酬465円 + ドコモ還元で実質マイナス857円達成可能",
-              "price": "33",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.yentame.net/index.asp?id=1225198"
-            },
-            {
-              "@type": "Offer",
-              "name": "げん玉",
-              "description": "ポイントサイト報酬400円",
-              "price": "98",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.gendama.jp/"
-            },
-            {
-              "@type": "Offer",
-              "name": "トリマ",
-              "description": "ポイントサイト報酬375円",
-              "price": "123",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://web.trip-mile.com/"
-            },
-            {
-              "@type": "Offer",
-              "name": "アメフリ",
-              "description": "ポイントサイト報酬350円",
-              "price": "148",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://www.amefri.net/"
-            },
-            {
-              "@type": "Offer",
-              "name": "ハピタス",
-              "description": "ポイントサイト報酬250円",
-              "price": "248",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://hapitas.jp/"
-            },
-            {
-              "@type": "Offer",
-              "name": "公式直接契約",
-              "description": "キャンペーン適用なし",
-              "price": "498",
-              "priceCurrency": "JPY",
-              "availability": "https://schema.org/InStock",
-              "url": "https://affitoku.jp/netflix/"
-            }
-          ]
-        }
-      }
-    </script>
-
-    <!-- Dynamic Page Schemas (FAQ, HowTo, etc.) -->
+    <!-- Dynamic Page Schemas (FAQ, HowTo, Product, etc.) -->
     {schemas.map(schema => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
     ))}
@@ -169,7 +98,11 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         --affitoku-red: #E60012;
         --affitoku-navy: #002A5B;
         --affitoku-gray: #F8F8F8;
-        color-scheme: light dark;
+        color-scheme: light;
+        --safe-area-inset-top: max(0px, env(safe-area-inset-top));
+        --safe-area-inset-right: max(0px, env(safe-area-inset-right));
+        --safe-area-inset-bottom: max(0px, env(safe-area-inset-bottom));
+        --safe-area-inset-left: max(0px, env(safe-area-inset-left));
       }
 
       * {
@@ -183,6 +116,8 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
         -webkit-tap-highlight-color: transparent;
+        scroll-behavior: smooth;
+        scroll-padding-top: env(safe-area-inset-top);
       }
 
       body {
@@ -197,26 +132,6 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       /* Performance: Prevent layout shifts */
       img {
         display: block;
-      }
-
-      /* Smooth scroll behavior */
-      html {
-        scroll-behavior: smooth;
-      }
-
-      /* Safe Area inset variables for Tailwind */
-      @supports (padding: max(0px)) {
-        :root {
-          --safe-area-inset-top: max(0px, env(safe-area-inset-top));
-          --safe-area-inset-right: max(0px, env(safe-area-inset-right));
-          --safe-area-inset-bottom: max(0px, env(safe-area-inset-bottom));
-          --safe-area-inset-left: max(0px, env(safe-area-inset-left));
-        }
-      }
-
-      /* Prevent CLS (Cumulative Layout Shift) */
-      html {
-        scroll-padding-top: env(safe-area-inset-top);
       }
     </style>
   </head>
