@@ -1,0 +1,109 @@
+---
+import affiliates from '../data/affiliates.json';
+import netflix from '../data/netflix.json';
+
+// affiliates.json をベースに、netflix.json の報酬額をマージ
+const rewardMap: Record<string, number> = {};
+for (const r of netflix.rewards) {
+  rewardMap[r.site] = r.amount;
+}
+
+const sites = Object.values(affiliates).map((site) => ({
+  ...site,
+  reward: rewardMap[site.name] ?? null,
+}));
+
+// 報酬額でソート（null は末尾）
+sites.sort((a, b) => {
+  if (a.reward === null && b.reward === null) return a.rank - b.rank;
+  if (a.reward === null) return 1;
+  if (b.reward === null) return -1;
+  return b.reward - a.reward;
+});
+
+const maxReward = Math.max(...sites.map((s) => s.reward ?? 0));
+---
+
+<section class="px-4 py-6 border-t border-gray-200">
+  <div class="flex items-baseline justify-between mb-4">
+    <h2 class="text-xs font-black text-gray-500 uppercase tracking-wider">
+      Netflix報酬ランキング
+    </h2>
+    <span class="text-[10px] text-gray-400">紹介登録で+ボーナス</span>
+  </div>
+
+  <div class="space-y-3">
+    {sites.map((site, index) => {
+      const isTop = index === 0 && site.reward !== null;
+      const barWidth = site.reward ? Math.round((site.reward / maxReward) * 100) : 0;
+
+      return (
+        <a
+          href={site.referralUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`block rounded-xl p-3 no-underline transition-opacity active:opacity-70 ${
+            isTop
+              ? 'bg-gradient-to-r from-[#E60012] to-[#b80a2f] text-white shadow-md'
+              : 'bg-white border border-gray-200 text-gray-900'
+          }`}
+          aria-label={`${site.name}経由でNetflixに登録する`}
+        >
+          <div class="flex items-center gap-2 mb-2">
+            {/* ランク番号 */}
+            <span
+              class={`text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                isTop ? 'bg-white text-[#E60012]' : 'bg-gray-100 text-gray-500'
+              }`}
+            >
+              {index + 1}
+            </span>
+
+            {/* サイト名 */}
+            <span class={`text-sm font-bold flex-1 ${isTop ? 'text-white' : 'text-gray-900'}`}>
+              {site.name}
+            </span>
+
+            {/* 報酬額 or 確認中バッジ */}
+            {site.reward !== null ? (
+              <span
+                class={`text-base font-black ${isTop ? 'text-white' : 'text-[#E60012]'}`}
+              >
+                +{site.reward.toLocaleString()}円
+              </span>
+            ) : (
+              <span class="text-[10px] font-bold text-gray-400 border border-gray-200 rounded px-1.5 py-0.5">
+                確認中
+              </span>
+            )}
+          </div>
+
+          {/* バー */}
+          {site.reward !== null && (
+            <div
+              class={`h-1.5 rounded-full ${isTop ? 'bg-white/30' : 'bg-gray-100'}`}
+            >
+              <div
+                class={`h-full rounded-full transition-all ${
+                  isTop ? 'bg-white' : 'bg-[#E60012]'
+                }`}
+                style={`width: ${barWidth}%`}
+              />
+            </div>
+          )}
+
+          {/* 最高額ラベル */}
+          {isTop && (
+            <p class="text-[10px] text-white/80 mt-1.5">
+              ← 全サイト中の最高報酬
+            </p>
+          )}
+        </a>
+      );
+    })}
+  </div>
+
+  <p class="text-[10px] text-gray-400 mt-3 text-center">
+    ※ 報酬額は変動します。申込前に各サイトで必ず確認してください。
+  </p>
+</section>
